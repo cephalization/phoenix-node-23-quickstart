@@ -2,6 +2,7 @@
   "name": "phoenix-node-23-quickstart",
   "version": "1.0.0",
   "main": "main.ts",
+  "type": "commonjs",
   "scripts": {
     "start": "node --require ./instrumentation.ts main.ts"
   },
