@@ -1,12 +1,16 @@
 // instrumentation.ts
-import { diag, DiagConsoleLogger, DiagLogLevel } from "@opentelemetry/api";
-import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
-import { resourceFromAttributes } from "@opentelemetry/resources";
-import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-base";
-import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
-import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
+const { diag, DiagConsoleLogger, DiagLogLevel } = require("@opentelemetry/api");
+const {
+  OTLPTraceExporter,
+} = require("@opentelemetry/exporter-trace-otlp-proto");
+const { resourceFromAttributes } = require("@opentelemetry/resources");
+const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
+const { NodeTracerProvider } = require("@opentelemetry/sdk-trace-node");
+const { ATTR_SERVICE_NAME } = require("@opentelemetry/semantic-conventions");
 
-import { SEMRESATTRS_PROJECT_NAME } from "@arizeai/openinference-semantic-conventions";
+const {
+  SEMRESATTRS_PROJECT_NAME,
+} = require("@arizeai/openinference-semantic-conventions");
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ERROR);
 
@@ -40,14 +44,15 @@ console.log("Provider registered");
 // instrumentation.ts
 
 // ... rest of imports
-import OpenAI from "openai";
-import { registerInstrumentations } from "@opentelemetry/instrumentation";
-import { OpenAIInstrumentation } from "@arizeai/openinference-instrumentation-openai";
+const { registerInstrumentations } = require("@opentelemetry/instrumentation");
+const {
+  OpenAIInstrumentation,
+} = require("@arizeai/openinference-instrumentation-openai");
 
 // ... previous code
 
 const instrumentation = new OpenAIInstrumentation();
-instrumentation.manuallyInstrument(OpenAI);
+// instrumentation.manuallyInstrument(OpenAI);
 
 registerInstrumentations({
   instrumentations: [instrumentation],
