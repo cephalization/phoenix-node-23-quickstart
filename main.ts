@@ -2,7 +2,7 @@
 import OpenAI from "openai";
 
 // set OPENAI_API_KEY in environment, or pass it in arguments
-const openai = new OpenAI();
+const openai = new OpenAI({});
 
 openai.chat.completions
   .create({
@@ -11,5 +11,4 @@ openai.chat.completions
   })
   .then((response) => {
     console.log(response.choices[0].message.content);
-  })
-  .then(() => new Promise((resolve) => setTimeout(resolve, 6000)));
+  });

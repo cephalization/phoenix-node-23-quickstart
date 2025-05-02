@@ -1,30 +1,33 @@
-// instrumentation.ts
-// Node environment instrumentation
+/// <reference types="vite/client" />
+// web environment instrumentation
 import { diag, DiagConsoleLogger, DiagLogLevel } from "@opentelemetry/api";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-proto";
 import { resourceFromAttributes } from "@opentelemetry/resources";
 import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-base";
-import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
+import { WebTracerProvider } from "@opentelemetry/sdk-trace-web";
 import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
 
 import { SEMRESATTRS_PROJECT_NAME } from "@arizeai/openinference-semantic-conventions";
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ERROR);
 
-const COLLECTOR_ENDPOINT = process.env.PHOENIX_COLLECTOR_ENDPOINT;
-const SERVICE_NAME = "phoenix-node-23-quickstart";
+const COLLECTOR_ENDPOINT = import.meta.env.PHOENIX_COLLECTOR_ENDPOINT;
+const API_KEY = import.meta.env.PHOENIX_API_KEY;
+const SERVICE_NAME = "my-llm-app";
 
-const provider = new NodeTracerProvider({
+const provider = new WebTracerProvider({
   resource: resourceFromAttributes({
     [ATTR_SERVICE_NAME]: SERVICE_NAME,
+    // defaults to "default" in the Phoenix UI
     [SEMRESATTRS_PROJECT_NAME]: SERVICE_NAME,
   }),
   spanProcessors: [
     new SimpleSpanProcessor(
       new OTLPTraceExporter({
         url: `${COLLECTOR_ENDPOINT}/v1/traces`,
-        // (optional) if connecting to Phoenix with Authentication enabled
-        headers: { Authorization: `Bearer ${process.env.PHOENIX_API_KEY}` },
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
       })
     ),
   ],
