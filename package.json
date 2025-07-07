@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "start": "node --import ./instrumentation.ts main.ts",
-    "ui": "vite"
+    "start:docker": "docker run -d --name arize-phoenix -p 6006:6006 -e PHOENIX_SQL_DATABASE_URL='sqlite:///:memory:' arize/phoenix:latest"
   },
   "author": "",
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "@arizeai/openinference-instrumentation-openai": "^2.3.0",
-    "@arizeai/openinference-semantic-conventions": "^1.1.0",
+    "@arizeai/openinference-instrumentation-openai": "^3.1.1",
+    "@arizeai/openinference-semantic-conventions": "^2.1.0",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/exporter-trace-otlp-proto": "^0.200.0",
     "@opentelemetry/instrumentation": "^0.200.0",
@@ -21,14 +21,6 @@
     "@opentelemetry/sdk-trace-node": "^2.0.0",
     "@opentelemetry/sdk-trace-web": "^2.0.0",
     "@opentelemetry/semantic-conventions": "^1.32.0",
-    "openai": "^4.97.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "devDependencies": {
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
-    "vite": "^6.3.4"
+    "openai": "^5.8.2"
   }
 }
