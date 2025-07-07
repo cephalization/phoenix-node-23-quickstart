@@ -41,7 +41,7 @@ export PHOENIX_API_KEY=your-api-key
 
 ```bash
 # run phoenix locally with in memory database
-docker run -d --name arize-phoenix -p 6006:6006 -e PHOENIX_SQL_DATABASE_URL="sqlite:///:memory:" arizephoenix/phoenix:latest
+docker run --pull=always -d --name arize-phoenix -p 6006:6006 -e PHOENIX_SQL_DATABASE_URL="sqlite:///:memory:" arizephoenix/phoenix:latest
 
 # view the traces
 open http://localhost:6006/

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node --import ./instrumentation.ts main.ts",
-    "start:docker": "docker run -d --name arize-phoenix -p 6006:6006 -e PHOENIX_SQL_DATABASE_URL='sqlite:///:memory:' arize/phoenix:latest"
+    "start:docker": "docker run --pull=always -d --name arize-phoenix -p 6006:6006 -e PHOENIX_SQL_DATABASE_URL='sqlite:///:memory:' arize/phoenix:latest"
   },
   "author": "",
   "license": "MIT",
